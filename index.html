@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <input id="numbers" />
+        <span id="response"></span>
+    <script>
+    document.getElementById('numbers').onkeyup = (event) => {
+  
+  const string = event.target.value;
+  const numbers = string.split(',').filter(x => x).map(x => parseInt(x))
+  
+  const valid = numbers.reduce((valid, x) => valid ? x > 0 : false, true)
+  document.getElementById('response').innerHTML = valid ? '' : 'Input contains non integers.';
+  if(!valid) return
+  
+  const existing_numbers = [1,2,3,4];
+  let unique = [];
+  
+  const duplicates = numbers.reduce((dupes, x) => {
+    if(existing_numbers.includes(x)){
+      return dupes.concat([x])
+    } else {
+      unique.push(x)
+      return dupes
+    }
+  }, [])
+    
+  var res = ''
+  if(unique.length > 0) res += '<br>Unique: '+unique.join(',')
+  if(duplicates.length > 0) res += '<br>Duplicates: '+duplicates.join(',')
+  document.getElementById('response').innerHTML = res
+  
+}
+    </script>
+</body>
+</html>
